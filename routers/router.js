@@ -1,21 +1,20 @@
 const serverAssets = require('express').static;
 
+// TODO: build API integration
 const routerApi = require('./api.router.js');
 const routerApp = require('./app.router.js');
-
+const routerAccount = require('./account.router.js');
 const errorMiddleware = require('./../middlewares/error.middleware.js');
 
-
 module.exports.init = (app, path) => {
-
   // Set static path
   app.use('/assets', serverAssets(`${path}/assets`));
 
   // Set routers
-  app.use('/', routerApp, errorMiddleware.app);
+  app.use('/', routerAccount, routerApp, errorMiddleware.app);
   app.use('/api', routerApi, errorMiddleware.api);
 
-  // Set default route
+  // Set default route TODO: define default route behaviour
   app.use('*', (req, res, next) => {
     res.send('Default route');
     next();

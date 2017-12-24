@@ -33,14 +33,14 @@ class Header extends React.Component {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="/odr">
+              <a className="navbar-brand" href="/">
                 ODR
               </a>
             </div>
             <div className="collapse navbar-collapse">
               <ul className="nav navbar-nav">
                 <li className="active">
-                  <a href="/odr">Inicio</a>
+                  <a href="/">Inicio</a>
                 </li>
                 {this.props.currentUser && (
                   <li>

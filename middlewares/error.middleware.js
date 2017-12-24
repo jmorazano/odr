@@ -1,5 +1,5 @@
 const logError = (err) => {
-  console.log(err);
+  console.log('ERROR FROM error.middleware.js ---->', err);
 };
 
 module.exports.api = (err, req, res, next) => {
@@ -12,10 +12,13 @@ module.exports.api = (err, req, res, next) => {
   res.status(err.status || 500).json({ error: err });
 };
 
-module.exports.app = (err, req, res, next) => {
+module.exports.app = (err, req, res) => {
   logError(err);
   if (err instanceof Error) {
     err = err.toString();
   }
-  res.render('Error', { error: err });
+  res.render('Error', {
+    error: err,
+    currentUser: req.user,
+  });
 };

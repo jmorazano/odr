@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
 
 // models
-const User = require('../models/user.js');
+const User = require('../models/user');
 
 exports.ensureAuthenticated = (req, res, next) => {
   console.log(`is Authenticated: ${req.isAuthenticated()}`);

@@ -1,45 +1,5 @@
-const meliService = require('./../services/meli.service');
-const meliTransform = require('./../services/meli.transform');
 const Blog = require('../models/blog.js');
 const User = require('../models/user.js');
-
-module.exports.root = (req, res) => {
-  console.log(process.env.NODE_ENV);
-  res.render('Home');
-};
-
-module.exports.search = (req, res, next) => {
-  meliService
-    .search(req.query.q)
-    .then((data) => {
-      const parsedData = meliTransform.getParsedSearch(data);
-      parsedData.author = res.locals.author;
-      res.render('Search', {
-        title: 'Resultados de búsqueda',
-        searchResults: parsedData,
-        query: req.query.q,
-      });
-    })
-    .catch(next);
-};
-
-module.exports.items = (req, res, next) => {
-  meliService
-    .item(req.params.id)
-    .then((data) => {
-      const parsedData = meliTransform.getParsedItem(data.category, data.item, data.description);
-      parsedData.author = res.locals.author;
-      res.render('Item', {
-        title: 'Detalle del item',
-        itemDetails: parsedData,
-      });
-    })
-    .catch(next);
-};
-
-module.exports.suggest = (req, res) => {
-  res.send(`Entra a suggest: ${req.params}`);
-};
 
 module.exports.odr = (req, res) => {
   const query = Blog.find({});

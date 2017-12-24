@@ -1,13 +1,7 @@
 const express = require('express');
-
-const app = express();
 const bodyParser = require('body-parser');
-const router = require('./routers/router.js');
 const expReact = require('express-react-views');
-const config = require('./config');
 const mongoose = require('mongoose');
-
-// Notifications module TODO: NOT WORKING
 const flash = require('express-flash');
 
 // User auth dependencies
@@ -17,30 +11,33 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt-nodejs');
+
+// Create App
+const app = express();
+const router = require('./routers/router.js');
+const config = require('./config');
 
 if (config.envVariables) {
   dotenv.load();
 }
 
-mongoose.Promise = require('bluebird');
+// Parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // DB connection
+mongoose.Promise = require('bluebird');
+
 app.db = mongoose.connect(config.dbUrl, {
   useMongoClient: true,
 });
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 // TURN ON COOKIES
-// COOKIEHASH in your .env file (must be available on heroku)
+// COOKIEHASH in your .env file (must be available on heroku and be the same)
 app.use(cookieParser(process.env.COOKIEHASH));
 
 // STORE SESSION IN MONGODB
 // MongoStore for session storage is using the connect-mongodb module
-
 app.use(
   session({
     secret: process.env.COOKIEHASH,
@@ -52,8 +49,8 @@ app.use(
   })
 );
 
+// Notifications module Sessions needed ^ TODO: NOT WORKING
 app.use(flash());
-
 app.use((req, res, next) => {
   // flash a message
   req.flash('info', 'hello!');
@@ -72,7 +69,6 @@ const User = require('./models/user.js');
 // passport.use(new LocalStrategy(User.authenticate()));
 passport.use(
   new LocalStrategy((username, password, done) => {
-    console.log(done);
     User.findOne({ username }, (err, user) => {
       if (err) return done(err);
       if (!user) return done(null, false, { message: 'Incorrect username.' });
@@ -96,7 +92,7 @@ app.engine('jsx', expReact.createEngine());
 app.set('views', __dirname + '/views/');
 app.set('view engine', 'jsx');
 
-// Use Mocks
+// Use Mocks TODO: analyze use of mocks for ODR
 if (config.useMocks) {
   console.log('---- Using Mocks ----');
   require('./mocks');

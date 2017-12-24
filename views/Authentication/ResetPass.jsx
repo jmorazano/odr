@@ -1,6 +1,6 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const SimpleLayout = require('./components/SimpleLayout');
+const SimpleLayout = require('./../components/SimpleLayout');
 
 class ResetPass extends React.Component {
   render() {

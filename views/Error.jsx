@@ -1,16 +1,17 @@
 const React = require('react');
-const Layout = require('./components/SimpleLayout');
+const SimpleLayout = require('./components/SimpleLayout');
 
 class Error extends React.Component {
   render() {
+    const { error, currentUser } = this.props;
     return (
-      <Layout>
+      <SimpleLayout currentUser={currentUser}>
         <div className="error">
-          <img className="error__img" src="https://www.mercadolibre.com/org-img/mkt/error/img/herramienta_es.jpg" alt="Destornillador" />
-          <h1 className="error__title">Detalle</h1>
-          <div className="error__detail">{this.props.error}"</div>
+          <h1 className="error__title">Ups! Hubo un error en el error.middleware.js</h1>
+          <h1 className="error__subtitle">Detalle del error:</h1>
+          <div className="error__detail">{error}"</div>
         </div>
-      </Layout>
+      </SimpleLayout>
     );
   }
 }

@@ -1,13 +1,12 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const SimpleLayout = require('./components/SimpleLayout');
+const SimpleLayout = require('./../components/SimpleLayout');
 
 class Forgot extends React.Component {
   render() {
-    const { templateData } = this.props;
-    console.log('FORGOT JSX:', templateData);
+    const { currentUser } = this.props;
     return (
-      <SimpleLayout currentUser={templateData.currentUser} breadCrumbs="" query="">
+      <SimpleLayout currentUser={currentUser}>
         <div>
           <div class="span8">
             <form className="form-group" method="POST">
@@ -15,7 +14,6 @@ class Forgot extends React.Component {
                 <label for="email">email</label>
                 <input type="text" name="email" id="email" />
               </div>
-
               <div class="field">
                 <input type="submit" class="btn btn-primary" value="Forgot" />
               </div>
