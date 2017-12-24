@@ -43,6 +43,7 @@ module.exports.suggest = (req, res) => {
 
 module.exports.odr = (req, res) => {
   const query = Blog.find({});
+
   query.populate('user');
   query.sort('-lastupdated');
   query.exec((err, blogposts) => {
@@ -54,14 +55,13 @@ module.exports.odr = (req, res) => {
         posts: blogposts,
         currentUser: req.user,
       };
-
-      res.render('Odr', { templateData });
+      res.render('Odr', templateData);
     }
   });
 };
 
 module.exports.userPosts = (req, res) => {
-  const userQuery = User.findOne({ username: req.param('username') });
+  const userQuery = User.findOne({ username: req.params.username });
 
   userQuery.exec((err, user) => {
     if (err) {
@@ -128,7 +128,7 @@ module.exports.writePost = (req, res) => {
 
     blogpost.save();
 
-    res.redirect('/edit/' + blogpost.id);
+    res.redirect(`/edit/${blogpost.id}`);
   }
 };
 
@@ -136,8 +136,8 @@ module.exports.edit = (req, res) => {
   console.log(req.param('blog_id'));
 
   Blog.findById(req.param('blog_id'), (err, blogpost) => {
-    console.log(blogpost.user);
-    console.log(req.user.id);
+    console.log('BLOG POST USER: ', blogpost.user);
+    console.log('REQUEST USER: ', req.user.id);
     if (err) {
       res.send('Uhoh something went wrong');
       console.log(err);

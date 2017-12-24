@@ -1,9 +1,9 @@
 const React = require('react');
 const Header = require('./Header');
-const Breadcrumb = require('./Breadcrumb');
 
 class SimpleLayout extends React.Component {
   render() {
+    const { currentUser } = this.props;
     return (
       <html>
         <head>
@@ -13,23 +13,24 @@ class SimpleLayout extends React.Component {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta name="theme-color" content="#fff059" />
           <title>ODR Argentina | Beta Version</title>
-          <link rel="shortcut icon" href="http://ui.mlstatic.com/navigation/1.2.0/mercadolibre/favicon.ico" />
+          {/* TODO: CHANGE BOOTSTRAP V TO REACT */}
+          <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+          <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" />
+
           <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" />
           <link href="/assets/dist/styles/main.css" rel="stylesheet" />
         </head>
         <body>
           <header role="banner" data-js="header" className="header">
-            <Header query={this.props.query} />
+            <Header currentUser={currentUser} query={this.props.query} />
           </header>
           <main role="main" className="main">
-            <Breadcrumb query={this.props.query} cats={this.props.breadCrumbs} />
-            <div className="main__content">
-              {this.props.children}
-            </div>
+            <div className="main__content">{this.props.children}</div>
           </main>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js" />
-          <script src="/assets/dist/scripts/header.bundle.js" />
+          
         </body>
       </html>
     );

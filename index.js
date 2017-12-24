@@ -6,6 +6,10 @@ const router = require('./routers/router.js');
 const expReact = require('express-react-views');
 const config = require('./config');
 const mongoose = require('mongoose');
+
+// Notifications module TODO: NOT WORKING
+const flash = require('express-flash');
+
 // User auth dependencies
 const dotenv = require('dotenv');
 const session = require('express-session');
@@ -13,6 +17,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt-nodejs');
 
 if (config.envVariables) {
   dotenv.load();
@@ -47,6 +52,15 @@ app.use(
   })
 );
 
+app.use(flash());
+
+app.use((req, res, next) => {
+  // flash a message
+  req.flash('info', 'hello!');
+  console.log('FLASH ON INDEX', res.locals);
+  next();
+});
+
 // TURN ON PASSPORT AUTHENTICATION MODULE
 app.use(passport.initialize());
 app.use(passport.session());
@@ -55,7 +69,23 @@ app.use(passport.session());
 const User = require('./models/user.js');
 
 // Configure passport to use Passport Local strategy
-passport.use(new LocalStrategy(User.authenticate()));
+// passport.use(new LocalStrategy(User.authenticate()));
+passport.use(
+  new LocalStrategy((username, password, done) => {
+    console.log(done);
+    User.findOne({ username }, (err, user) => {
+      if (err) return done(err);
+      if (!user) return done(null, false, { message: 'Incorrect username.' });
+      user.comparePassword(password, (err, isMatch) => {
+        if (isMatch) {
+          return done(null, user);
+        } else {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+      });
+    });
+  })
+);
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 

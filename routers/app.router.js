@@ -34,6 +34,14 @@ router.post('/login', passport.authenticate('local'), account.login_post);
 router.get('/register', account.register);
 router.post('/register', account.register_post);
 
+// Forgot password
+router.get('/forgot', account.forgot);
+router.post('/forgot', account.forgot_post);
+
+// Reset password
+router.get('/reset/:token', account.resetPass);
+router.post('/reset/:token', account.resetPassPost);
+
 // logout
 router.get('/logout', account.logout);
 // -------------------- /User login auth --------------------

@@ -7,7 +7,7 @@ class BlogForm extends React.Component {
     const { templateData } = this.props;
 
     return (
-      <SimpleLayout breadCrumbs="" query="">
+      <SimpleLayout currentUser={templateData.currentUser} breadCrumbs="" query="">
         <div class="row">
           <div class="span12">
             <h1>{templateData.title}</h1>

@@ -4,24 +4,29 @@ const SimpleLayout = require('./components/SimpleLayout');
 
 class UserPosts extends React.Component {
   render() {
-    const { title, posts, currentUser, bloguser, isOwner } = this.props;
+    const { title, posts, currentUser, isOwner } = this.props;
+    console.log('BLOGPOSTS QUERY -------->', posts);
 
     return (
-      <SimpleLayout breadCrumbs="" query="">
+      <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
         <div class="row">
-            <div class="span9">
-              <h1>{title}</h1>
-              <br />
-              {posts.map(post => (
-                <div>
-                  <h2>
-                    {post.title}
-                    {isOwner && <a href={`/edit/${post.id}`} class="btn btn-primary btn-small">edit</a>}
-                  </h2>
-                  <p>{post.body}</p>
-                </div>
-              ))}
-            </div>
+          <div class="span9">
+            <h1>{title}</h1>
+            <br />
+            {posts.map(post => (
+              <div>
+                <h2>
+                  {post.title}
+                  {isOwner && (
+                    <a href={`/edit/${post.id}`} class="btn btn-primary btn-small">
+                      edit
+                    </a>
+                  )}
+                </h2>
+                <p>{post.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </SimpleLayout>
     );

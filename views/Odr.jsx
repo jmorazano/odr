@@ -4,11 +4,15 @@ const SimpleLayout = require('./components/SimpleLayout');
 
 class Odr extends React.Component {
   render() {
-    const { templateData } = this.props;
-    console.log(templateData);
+    const { posts, currentUser } = this.props;
+    console.log('CURRENT USER FROM ODR.JSX--->', currentUser);
+
     return (
-      <SimpleLayout breadCrumbs="" query="">
-        <h1>Template Data: {templateData.posts}</h1>
+      <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
+        <h1>
+          Template Data:
+          {posts.map(post => <h2>{post.body}</h2>)}
+        </h1>
       </SimpleLayout>
     );
   }
