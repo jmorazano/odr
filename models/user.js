@@ -8,6 +8,27 @@ const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  firstName: String,
+  lastName: String,
+  avatarUrl: String,
+  userType: String,
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String,
+    isVerified: Boolean,
+  },
+  identification: {
+    idNumber: Number,
+    idType: String,
+    isVerified: Boolean,
+  },
+  phone: {
+    areaCode: Number,
+    number: Number,
+    isVerified: Boolean,
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });
