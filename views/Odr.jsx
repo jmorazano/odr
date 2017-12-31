@@ -11,7 +11,11 @@ class Odr extends React.Component {
       <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
         <h1>
           Empresas asociadas a ODR:
-          {companies.map(company => <h2>{company.legalName}</h2>)}
+          {companies.map(company => (
+            <h2>
+              <a href={`/write/${company.id}`}>{company.legalName}</a>
+            </h2>
+          ))}
         </h1>
       </SimpleLayout>
     );

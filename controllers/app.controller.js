@@ -54,10 +54,18 @@ module.exports.write = (req, res) => {
   const templateData = {
     title: 'Realizar un reclamo',
     currentUser: req.user,
-    claimCompany: req.param('company_id'),
   };
 
-  res.render('BlogForm', templateData);
+  if (req.params.company_id !== undefined) {
+    queryService.companyInfo(req.params.company_id).then((company) => {
+      templateData.companyInfo = company;
+      templateData.title = `Realizar un reclamo a ${company.legalName}`;
+      console.log('inside promise ------------->', templateData);
+      res.render('BlogForm', templateData);
+    });
+  } else {
+    res.render('BlogForm', templateData);
+  }
 };
 
 module.exports.writePost = (req, res) => {
@@ -122,7 +130,6 @@ module.exports.CompanyPost = (req, res) => {
       .replace(/[^\w ]+/g, '')
       .replace(/ +/g, '_');
     company.taxId = req.body.tax_id;
-
     company.userAdmin = req.user; // associate logged in user with company
 
     company.save();
@@ -158,17 +165,15 @@ module.exports.edit = (req, res) => {
       res.send('Uhoh something went wrong');
       console.log(err);
     } else if (blogpost.user != req.user.id) {
-      res.send('You dooooooo not own this blog post.');
+      res.send('You do not own this claim.');
     } else {
-      console.log(blogpost);
-
       const templateData = {
-        title: 'Edit Blog Post',
+        title: 'Editar reclamo',
         blogpost,
         currentUser: req.user,
       };
 
-      res.render('BlogForm', { templateData });
+      res.render('BlogForm', templateData);
     }
   });
 };

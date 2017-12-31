@@ -28,6 +28,18 @@ class QueryService {
 
     return userCompanies;
   }
+
+  companyInfo(companyId) {
+    const companyQuery = Company.findOne({ _id: companyId });
+    const companyInfo = companyQuery.exec((error, company) => {
+      if (error) {
+        return error;
+      }
+      return company;
+    });
+
+    return companyInfo;
+  }
 }
 
 module.exports = new QueryService();

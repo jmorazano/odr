@@ -8,16 +8,16 @@ class BlogForm extends React.Component {
 
     return (
       <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
-        <div class="row">
-          <div class="span12">
+        <div className="row">
+          <div className="span12">
             <h1>{title}</h1>
           </div>
         </div>
-        <div class="row">
-          <div class="span8">
+        <div className="row">
+          <div className="span8">
             <form method="POST" action="/write">
-              <div class="field required">
-                <label for="id_title">Title</label>
+              <div className="field required">
+                <label htmlFor="id_title">Title</label>
                 <input
                   type="text"
                   required
@@ -27,8 +27,8 @@ class BlogForm extends React.Component {
                 />
               </div>
 
-              <div class="field required">
-                <label for="post_body">Post</label>
+              <div className="field required">
+                <label htmlFor="post_body">Post</label>
                 <textarea name="body" id="post_body" rows="4" cols="150">
                   {blogpost && blogpost.body}
                 </textarea>
@@ -38,7 +38,7 @@ class BlogForm extends React.Component {
                 <input type="hidden" name="blog_id" id="blog_id" value={blogpost.id} />
               )}
 
-              <input type="submit" class="btn" value="Save" />
+              <input type="submit" className="btn" value="Save" />
             </form>
           </div>
         </div>

@@ -6,8 +6,9 @@ const accountController = require('../controllers/account.controller.js');
 router.get('/', appController.odr);
 router.get('/user/:username', appController.userPosts);
 
-// create a blog post
+// create a claim
 router.get('/write', accountController.ensureAuthenticated, appController.write);
+router.get('/write/:company_id', accountController.ensureAuthenticated, appController.write);
 router.post('/write', accountController.ensureAuthenticated, appController.writePost);
 
 // create company
