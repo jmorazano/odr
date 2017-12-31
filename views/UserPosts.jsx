@@ -1,34 +1,54 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const SimpleLayout = require('./components/SimpleLayout');
+const SideNavLayout = require('./components/SideNavLayout.jsx');
 
 class UserPosts extends React.Component {
   render() {
-    const { title, posts, currentUser, isOwner } = this.props;
-    console.log('BLOGPOSTS QUERY -------->', posts);
-
+    const { userClaims, userCompanies, currentUser, isOwner } = this.props;
+    console.log('USER CLAIMS----->', userClaims);
+    console.log('USER COMPANIES----->', userCompanies);
     return (
-      <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
+      <SideNavLayout currentUser={currentUser}>
         <div class="row">
           <div class="span9">
-            <h1>{title}</h1>
+            <h1>Reclamos de {currentUser.username}</h1>
             <br />
-            {posts.map(post => (
-              <div>
-                <h2>
-                  {post.title}
-                  {isOwner && (
-                    <a href={`/edit/${post.id}`} class="btn btn-primary btn-small">
-                      edit
-                    </a>
-                  )}
-                </h2>
-                <p>{post.body}</p>
-              </div>
-            ))}
+            {userClaims &&
+              userClaims.map(post => (
+                <div>
+                  <h2>
+                    {post.title}
+                    {isOwner && (
+                      <a href={`/edit/${post.id}`} class="btn btn-primary btn-small">
+                        edit
+                      </a>
+                    )}
+                  </h2>
+                  <p>{post.body}</p>
+                </div>
+              ))}
+          </div>
+
+          <div class="span9">
+            <h1>Empresas de {currentUser.username}</h1>
+            <br />
+            {userCompanies &&
+              userCompanies.map(company => (
+                <div>
+                  <h2>
+                    {company.legalName}
+                    {isOwner && (
+                      <a href={`/company/edit/${company.id}`} class="btn btn-primary btn-small">
+                        edit
+                      </a>
+                    )}
+                  </h2>
+                  <p>{company.taxId}</p>
+                </div>
+              ))}
           </div>
         </div>
-      </SimpleLayout>
+      </SideNavLayout>
     );
   }
 }

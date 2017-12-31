@@ -11,7 +11,7 @@ module.exports.init = (app, path) => {
   app.use('/assets', serverAssets(`${path}/assets`));
 
   // Set routers
-  app.use('/', routerAccount, routerApp, errorMiddleware.app);
+  app.use('/', routerAccount, routerApp); // TODO: fix error middleware
   app.use('/api', routerApi, errorMiddleware.api);
 
   // Set default route TODO: define default route behaviour

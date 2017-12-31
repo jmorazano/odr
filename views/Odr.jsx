@@ -4,14 +4,14 @@ const SimpleLayout = require('./components/SimpleLayout');
 
 class Odr extends React.Component {
   render() {
-    const { posts, currentUser } = this.props;
+    const { companies, currentUser } = this.props;
     console.log('CURRENT USER FROM ODR.JSX--->', currentUser);
 
     return (
       <SimpleLayout currentUser={currentUser} breadCrumbs="" query="">
         <h1>
-          Template Data:
-          {posts.map(post => <h2>{post.body}</h2>)}
+          Empresas asociadas a ODR:
+          {companies.map(company => <h2>{company.legalName}</h2>)}
         </h1>
       </SimpleLayout>
     );

@@ -26,13 +26,13 @@ exports.login = (req, res) => {
 
 // Login post
 exports.login_post = (req, res) => {
-  res.redirect('/write');
+  res.redirect(`/user/${req.user.username}`);
 };
 
 // logout
 exports.logout = (req, res) => {
   req.session.destroy((err) => {
-    res.redirect('/odr');
+    res.redirect('/');
   });
 };
 
@@ -43,25 +43,23 @@ exports.register = (req, res) => {
 exports.register_post = (req, res) => {
   if (req.body.password !== req.body.confirm) {
     return res.render('Authentication/Register');
-  } else {
-    User.register(
-      new User({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-      }),
-      req.body.password,
-      (err, new_user) => {
-        if (err) {
-          console.log('Error al registrar:', err);
-          return res.render('Authentication/Register');
-        }
-        console.log('**********');
-        console.log(new_user);
-        res.redirect('/write');
-      }
-    );
   }
+
+  User.register(
+    new User({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email,
+    }),
+    req.body.password,
+    (err, new_user) => {
+      if (err) {
+        console.log('Error al registrar:', err);
+        return res.render('Authentication/Register');
+      }
+      res.redirect('/write');
+    }
+  );
 };
 
 exports.forgot = (req, res) => {

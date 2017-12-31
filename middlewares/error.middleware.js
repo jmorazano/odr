@@ -17,8 +17,5 @@ module.exports.app = (err, req, res) => {
   if (err instanceof Error) {
     err = err.toString();
   }
-  res.render('Error', {
-    error: err,
-    currentUser: req.user,
-  });
+  res.send('Error');
 };
