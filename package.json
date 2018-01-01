@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "6.11.0"
+  },
   "scripts": {
     "clean": "rimraf assets/dist/**/* && mkdirp assets/dist/scripts assets/dist/styles",
     "autoprefixer": "postcss -u autoprefixer -r assets/dist/styles/*",
