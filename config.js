@@ -1,7 +1,7 @@
 const production = {
   host: process.env.IP,
   port: process.env.PORT,
-  dbUrl: process.env.MONGOLAB_URI,
+  dbUrl: process.env.MONGODB_URI,
   useMocks: false,
 };
 
