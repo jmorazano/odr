@@ -37,7 +37,6 @@ module.exports.userPosts = (req, res) => {
             currentUser: req.user,
             bloguser: user,
           };
-          console.log('USER COMPANIES----->', userCompanies);
           // if logged in, is this user the requested user?
           if (req.user !== undefined) {
             templateData.isOwner = req.user.id === user.id;
@@ -60,7 +59,6 @@ module.exports.write = (req, res) => {
     queryService.companyInfo(req.params.company_id).then((company) => {
       templateData.companyInfo = company;
       templateData.title = `Realizar un reclamo a ${company.legalName}`;
-      console.log('inside promise ------------->', templateData);
       res.render('BlogForm', templateData);
     });
   } else {
@@ -159,8 +157,6 @@ module.exports.companyEdit = (req, res) => {
 
 module.exports.edit = (req, res) => {
   Blog.findById(req.param('blog_id'), (err, blogpost) => {
-    console.log('BLOG POST USER: ', blogpost.user);
-    console.log('REQUEST USER: ', req.user.id);
     if (err) {
       res.send('Uhoh something went wrong');
       console.log(err);

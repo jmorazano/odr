@@ -50,13 +50,13 @@ app.use(
 );
 
 // Notifications module Sessions needed ^ TODO: NOT WORKING
-app.use(flash());
-app.use((req, res, next) => {
-  // flash a message
-  req.flash('info', 'hello!');
-  console.log('FLASH ON INDEX', res.locals);
-  next();
-});
+// app.use(flash());
+// app.use((req, res, next) => {
+//   // flash a message
+//   req.flash('info', 'hello!');
+//   console.log('FLASH ON INDEX', res.locals);
+//   next();
+// });
 
 // TURN ON PASSPORT AUTHENTICATION MODULE
 app.use(passport.initialize());
