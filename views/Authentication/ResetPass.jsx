@@ -11,23 +11,23 @@ class ResetPass extends React.Component {
         <div>
           <form method="POST">
             <legend>Reset Password</legend>
-            <div class="form-group">
-              <label for="password">New Password</label>
+            <div className="form-group">
+              <label htmlFor="password">New Password</label>
               <input
                 type="password"
                 name="password"
                 value=""
                 placeholder="New password"
                 autofocus="autofocus"
-                class="form-control"
+                className="form-control"
               />
             </div>
-            <div class="form-group">
-              <label for="confirm">Confirm Password</label>
-              <input type="password" name="confirm" value="" placeholder="Confirm password" class="form-control" />
+            <div className="form-group">
+              <label htmlFor="confirm">Confirm Password</label>
+              <input type="password" name="confirm" value="" placeholder="Confirm password" className="form-control" />
             </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">
                 Update Password
               </button>
             </div>

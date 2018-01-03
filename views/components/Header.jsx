@@ -57,9 +57,11 @@ class Header extends React.Component {
                     <a href="/register">Registrarse</a>
                   </li>
                 )}
-                <li>
-                  <a href="/write">Cargar Reclamo</a>
-                </li>
+                {currentUser && (
+                  <li>
+                    <a href="/write">Cargar Reclamo</a>
+                  </li>
+                )}
                 {currentUser && (
                   <li>
                     <a href="/logout">Salir</a>

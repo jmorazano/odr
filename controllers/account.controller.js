@@ -81,7 +81,8 @@ exports.forgot_post = (req, res, next) => {
       (token, done) => {
         User.findOne({ email: req.body.email }, (err, user) => {
           if (!user) {
-            req.flash('error', 'No account with that email address exists.');
+            // req.flash('error', 'No account with that email address exists.');
+            console.log('error: No account with that email address exists.');
             return res.redirect('/forgot');
           }
 
@@ -117,7 +118,7 @@ exports.forgot_post = (req, res, next) => {
             'If you did not request this, please ignore this email and your password will remain unchanged.\n',
         };
         smtpTransport.sendMail(mailOptions, (err) => {
-          req.flash('info', `An e-mail has been sent to ${user.email} with further instructions.`);
+          // req.flash('info', `An e-mail has been sent to ${user.email} with further instructions.`);
           done(err, 'done');
         });
       },

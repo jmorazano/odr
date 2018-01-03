@@ -8,23 +8,28 @@ class Login extends React.Component {
     return (
       <SimpleLayout currentUser={templateData.currentUser} breadCrumbs="" query="">
         <div>
-          <div class="span8">
+          <div className="span8">
             <form className="form-group" method="POST">
-              <div class="">
-                <label for="username">Username</label>
+              <div className="">
+                <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" />
               </div>
 
-              <div class="">
-                <label for="password">Password</label>
+              <div className="">
+                <label htmlFor="password">Password</label>
                 <input type="password" name="password" id="password" />
               </div>
 
-              <div class="field">
-                <input type="submit" class="btn btn-primary" value="Log in" />
+              <div className="field">
+                <input type="submit" className="btn btn-primary" value="Log in" />
               </div>
             </form>
-            <a href="/forgot">Te olvidaste tu contraseña?</a>
+            <div>
+              <a href="/forgot">Te olvidaste tu contraseña?</a>
+            </div>
+            <div>
+              <a href="/register">No tenés cuenta? Registrate Acá</a>
+            </div>
           </div>
         </div>
       </SimpleLayout>

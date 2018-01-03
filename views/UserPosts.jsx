@@ -9,8 +9,8 @@ class UserPosts extends React.Component {
     console.log('USER COMPANIES----->', userCompanies);
     return (
       <SideNavLayout currentUser={currentUser}>
-        <div class="row">
-          <div class="span9">
+        <div className="row">
+          <div className="span9">
             <h1>Reclamos de {currentUser.username}</h1>
             <br />
             {userClaims &&
@@ -19,7 +19,7 @@ class UserPosts extends React.Component {
                   <h2>
                     {post.title}
                     {isOwner && (
-                      <a href={`/edit/${post.id}`} class="btn btn-primary btn-small">
+                      <a href={`/edit/${post.id}`} className="btn btn-primary btn-small">
                         edit
                       </a>
                     )}
@@ -29,7 +29,7 @@ class UserPosts extends React.Component {
               ))}
           </div>
 
-          <div class="span9">
+          <div className="span9">
             <h1>Empresas de {currentUser.username}</h1>
             <br />
             {userCompanies &&
@@ -38,7 +38,7 @@ class UserPosts extends React.Component {
                   <h2>
                     {company.legalName}
                     {isOwner && (
-                      <a href={`/company/edit/${company.id}`} class="btn btn-primary btn-small">
+                      <a href={`/company/edit/${company.id}`} className="btn btn-primary btn-small">
                         edit
                       </a>
                     )}

@@ -8,14 +8,14 @@ class Forgot extends React.Component {
     return (
       <SimpleLayout currentUser={currentUser}>
         <div>
-          <div class="span8">
+          <div className="span8">
             <form className="form-group" method="POST">
-              <div class="">
-                <label for="email">email</label>
+              <div className="">
+                <label htmlFor="email">email</label>
                 <input type="text" name="email" id="email" />
               </div>
-              <div class="field">
-                <input type="submit" class="btn btn-primary" value="Forgot" />
+              <div className="field">
+                <input type="submit" className="btn btn-primary" value="Forgot" />
               </div>
             </form>
           </div>
