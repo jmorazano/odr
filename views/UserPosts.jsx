@@ -9,8 +9,8 @@ class UserPosts extends React.Component {
     console.log('USER COMPANIES----->', userCompanies);
     return (
       <SideNavLayout currentUser={currentUser}>
-        <div className="row">
-          <div className="span9">
+        <div className="">
+          <div className="">
             <h1>Reclamos de {currentUser.username}</h1>
             <br />
             {userClaims &&

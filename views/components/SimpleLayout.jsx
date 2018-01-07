@@ -3,7 +3,7 @@ const Header = require('./Header');
 
 class SimpleLayout extends React.Component {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, pageStyles } = this.props;
     return (
       <html>
         <head>
@@ -17,9 +17,9 @@ class SimpleLayout extends React.Component {
           <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
           <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
           <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" />
-
           <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" />
-          <link href="/assets/dist/styles/main.css" rel="stylesheet" />
+          <link href="/assets/dist/styles/simple-layout.css" rel="stylesheet" />
+          {pageStyles && <link href={pageStyles} rel="stylesheet" />}
         </head>
         <body>
           <header role="banner" data-js="header" className="header">

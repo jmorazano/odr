@@ -13,14 +13,14 @@ router.post('/write', accountController.ensureAuthenticated, appController.write
 
 // create company
 router.get('/new-company', accountController.ensureAuthenticated, appController.newCompany);
-router.post('/new-company', accountController.ensureAuthenticated, appController.CompanyPost);
+router.post('/new-company', accountController.ensureAuthenticated, appController.companyPost);
 
 // edit a company
 router.get('/company/edit/:company_id', accountController.ensureAuthenticated, appController.companyEdit);
-router.post('/company/edit/:company_id', accountController.ensureAuthenticated, appController.CompanyPost);
+router.post('/company/edit/:company_id', accountController.ensureAuthenticated, appController.companyPost);
 
 // edit a blog post
-router.get('/edit/:blog_id', accountController.ensureAuthenticated, appController.edit);
-router.post('/edit/:blog_id', accountController.ensureAuthenticated, appController.writePost);
+router.get('/edit/:claim_id', accountController.ensureAuthenticated, appController.edit);
+router.post('/edit/:claim_id', accountController.ensureAuthenticated, appController.writePost);
 
 module.exports = router;

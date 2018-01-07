@@ -1,0 +1,203 @@
+.hero {
+  background-image: url("http://duckbags.co/wp-content/uploads/2018/01/offer-first-time-mobile@2x.jpg");
+  background-position: top;
+  background-size: cover;
+  height: 480px;
+  overflow: auto;
+}
+
+.hero__info {
+  overflow: auto;
+  padding: 20px;
+  max-width: 390px;
+}
+
+.how-it-works {
+  overflow: auto;
+}
+
+.pattern-bg {
+  background-color: #ffffff;
+  background-image: url("https://www.transparenttextures.com/patterns/black-thread-light.png");
+}
+
+.how-it-works__title {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+
+.steps {
+  list-style-position: inside;
+  padding: 0 30px;
+  list-style-type: disc;
+  font-size: 16px;
+  margin-bottom: 34px;
+}
+
+.video__dummy {
+  width: 100%;
+  height: auto;
+}
+
+.companies {
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.companies__wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px 0;
+}
+
+.companies-arrow {
+  position: absolute;
+  bottom: 100px;
+  top: unset;
+
+  &--left {
+    left: 7px;
+  }
+
+  &--right {
+    right: 7px;
+  }
+}
+
+.company-list {
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  width: auto;
+}
+
+.company-list__item {
+  display: inline-flex;
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 15px;
+
+  a {
+    flex-grow: 1;
+    color: transparent;
+  }
+}
+
+.faqs {
+  padding: 30px;
+}
+
+.faqs__title {
+  text-align: center;
+}
+
+.faqs__accordion {
+  padding-top: 30px;
+
+  .card-header {
+    overflow: auto;
+
+    a {
+      color: #333;
+      font-size: 18px;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  .card-body {
+    color: #666;
+    padding: 10px 0 15px;
+  }
+
+  .card-header .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: "Glyphicons Halflings"; /* essential for enabling glyphicon */
+    content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+    float: right; /* adjust as needed */
+    color: grey; /* adjust as needed */
+    font-size: 12px;
+  }
+  .card-header .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080"; /* adjust as needed, taken from bootstrap.css */
+  }
+}
+
+@media (min-width: 768px) {
+  .hero {
+    background-image: url("http://duckbags.co/wp-content/uploads/2018/01/offer@2x.png");
+    height: 450px;
+
+    .hero__info {
+      margin-left: 3%;
+    }
+  }
+
+  .how-it-works {
+    padding: 30px;
+
+    .how-it-works__content {
+      display: flex;
+      justify-content: space-between;
+      max-width: 980px;
+      margin: auto;
+    }
+
+    .steps {
+      padding-top: 10px;
+      flex-grow: 1;
+      font-size: 26px;
+    }
+  }
+
+  .companies {
+    .centered {
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .companies-arrow {
+      display: none;
+    }
+
+    .companies__wrapper {
+      overflow-x: auto;
+      overflow-y: auto;
+      width: 85%;
+      margin: auto;
+      max-width: 980px;
+    }
+
+    .company-list {
+      padding: 20px;
+      white-space: normal;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    .company-list__item {
+      height: 150px;
+      width: 150px;
+      margin-right: 35px;
+    }
+  }
+
+  .faqs {
+    .faqs__accordion {
+      background-color: rgba(255, 255, 255, 0.5);
+      width: 85%;
+      margin: auto;
+      padding: 50px;
+      max-width: 980px;
+    }
+  }
+}

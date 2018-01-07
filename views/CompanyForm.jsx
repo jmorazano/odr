@@ -1,38 +1,48 @@
 const React = require('react');
 const PropTypes = require('prop-types');
-const SimpleLayout = require('./components/SimpleLayout.jsx');
+const SideNavLayout = require('./components/SideNavLayout.jsx');
 
 class BlogForm extends React.Component {
   render() {
     const { title, currentUser, company } = this.props;
 
     return (
-      <SimpleLayout currentUser={currentUser}>
-        <div className="row">
+      <SideNavLayout currentUser={currentUser}>
+        <div className="">
           <div className="span12">
             <h1>{title}</h1>
           </div>
         </div>
-        <div className="row">
-          <div className="span8">
+        <div className="">
+          <div className="centered">
             <form method="POST" action="/new-company">
-              <div className="field required">
-                <label htmlFor="id_legal_name">Razón Social</label>
+              <div className="group">
                 <input type="text" required name="legal_name" id="id_legal_name" value={company && company.legalName} />
+                <span className="highlight" />
+                <span className="bar" />
+                <label htmlFor="id_legal_name">Razón Social</label>
               </div>
 
-              <div className="field required">
-                <label htmlFor="id_tax_id">CUIT / CUIL</label>
+              <div className="group">
                 <input type="text" required name="tax_id" id="id_tax_id" value={company && company.taxId} />
+                <span className="highlight" />
+                <span className="bar" />
+                <label htmlFor="id_tax_id">CUIT / CUIL</label>
+              </div>
+
+              <div className="group">
+                <input type="text" required name="logo_url" id="logo_url" value={company && company.logo_url} />
+                <span className="highlight" />
+                <span className="bar" />
+                <label htmlFor="logo_url">Logo url</label>
               </div>
 
               {company && <input type="hidden" name="company_id" id="company_id" value={company.id} />}
-
-              <input type="submit" className="btn" value="Guardar" />
+              <input type="submit" className="odr-btn" value="Guardar" />
             </form>
           </div>
         </div>
-      </SimpleLayout>
+      </SideNavLayout>
     );
   }
 }

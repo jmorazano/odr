@@ -4,7 +4,7 @@ const SidebarNav = require('./SidebarNav.jsx');
 
 class SimpleLayout extends React.Component {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, pageStyles } = this.props;
     return (
       <html>
         <head>
@@ -20,7 +20,8 @@ class SimpleLayout extends React.Component {
           <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js" />
 
           <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" />
-          <link href="/assets/dist/styles/main.css" rel="stylesheet" />
+          <link href="/assets/dist/styles/admin-layout.css" rel="stylesheet" />
+          {pageStyles && <link href={pageStyles} rel="stylesheet" />}
         </head>
         <body>
           <header role="banner" data-js="header" className="header">
@@ -29,7 +30,7 @@ class SimpleLayout extends React.Component {
           <nav className="sidebar-nav">
             <SidebarNav currentUser={currentUser} />
           </nav>
-          <main role="main" className="main">
+          <main role="main" className="main main--sidebar">
             <div className="main__content">{this.props.children}</div>
           </main>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js" />
