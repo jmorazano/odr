@@ -4,7 +4,7 @@ const SideNavLayout = require('./components/SideNavLayout.jsx');
 
 class BlogForm extends React.Component {
   render() {
-    const { title, currentUser, company } = this.props;
+    const { title, currentUser, company, categories } = this.props;
 
     return (
       <SideNavLayout currentUser={currentUser}>
@@ -31,11 +31,15 @@ class BlogForm extends React.Component {
               </div>
 
               <div className="group">
-                <input type="text" required name="logo_url" id="logo_url" value={company && company.logo_url} />
+                <input type="text" required name="logo_url" id="logo_url" value={company && company.logoUrl} />
                 <span className="highlight" />
                 <span className="bar" />
                 <label htmlFor="logo_url">Logo url</label>
               </div>
+
+              <select name="category" value={company && company.category} className="category-select">
+                {categories.map(category => <option value={category.id}>{category.name}</option>)}
+              </select>
 
               {company && <input type="hidden" name="company_id" id="company_id" value={company.id} />}
               <input type="submit" className="odr-btn" value="Guardar" />

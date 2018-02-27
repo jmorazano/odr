@@ -1,7 +1,7 @@
-const Blog = require('../models/blog');
 const Claim = require('../models/claim');
 const User = require('../models/user');
 const Company = require('../models/company');
+const Category = require('../models/category');
 const queryService = require('../services/query.service');
 
 module.exports.odr = (req, res) => {
@@ -100,12 +100,14 @@ module.exports.writePost = (req, res) => {
 };
 
 module.exports.newCompany = (req, res) => {
-  const templateData = {
-    title: 'Create a new Company',
-    currentUser: req.user,
-  };
-
-  res.render('CompanyForm', templateData);
+  queryService.getCategories().then((categories) => {
+    const templateData = {
+      title: 'Create a new Company',
+      currentUser: req.user,
+      categories,
+    };
+    res.render('CompanyForm', templateData);
+  });
 };
 
 module.exports.companyPost = (req, res) => {
@@ -116,8 +118,13 @@ module.exports.companyPost = (req, res) => {
       }
 
       company.legalName = req.body.legal_name;
+      company.urltitle = req.body.legal_name
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '_');
       company.taxId = req.body.tax_id;
       company.logoUrl = req.body.logo_url;
+      company.category = req.body.category;
       company.save();
 
       res.redirect(`user/${req.user.username}`);
@@ -133,6 +140,7 @@ module.exports.companyPost = (req, res) => {
     company.taxId = req.body.tax_id;
     company.userAdmin = req.user; // associate logged in user with company
     company.logoUrl = req.body.logo_url;
+    company.category = req.body.category;
 
     company.save();
 
@@ -148,13 +156,95 @@ module.exports.companyEdit = (req, res) => {
     } else if (company.userAdmin != req.user.id) {
       res.send('You do not own this company.');
     } else {
+      queryService.getCategories().then((categories) => {
+        const templateData = {
+          title: 'Edit company info',
+          company,
+          currentUser: req.user,
+          categories,
+        };
+        res.render('CompanyForm', templateData);
+      });
+    }
+  });
+};
+
+module.exports.newCategory = (req, res) => {
+  const templateData = {
+    currentUser: req.user,
+  };
+
+  res.render('CategoryForm', templateData);
+};
+
+module.exports.categoryPost = (req, res) => {
+  console.log('--------- ajax POST arrived ---------');
+  console.log('Body request----->', req.body.name);
+
+  if (req.params.category_id !== undefined) {
+    Category.findById(req.param('category_id'), (err, category) => {
+      if (err) {
+        res.send('unable to find category');
+      }
+      category.name = req.body.name;
+      category.levels = req.body.levels;
+      category.author = req.user; // associate logged in user with category
+      category.save();
+
+      res.contentType('json');
+      res.send({ url: `categories/edit/${category.id}` });
+    });
+  } else {
+    // Create a new category
+    const category = new Category();
+    category.name = req.body.name;
+    category.levels = req.body.levels;
+    category.author = req.user; // associate logged in user with category
+
+    category.save();
+
+    res.contentType('json');
+    res.send({ url: `categories/edit/${category.id}` });
+  }
+};
+
+module.exports.getCategories = (req, res) => {
+  const query = Category.find({});
+
+  query.populate('user');
+  query.sort('-lastupdated');
+  query.exec((err, categories) => {
+    if (err) {
+      console.log('ERROR ON CATEGORY QUERY-------->', err);
+      res.send('uhoh, something happened when fetching categories.');
+    } else {
       const templateData = {
-        title: 'Edit company info',
-        company,
+        categories,
+        currentUser: req.user,
+      };
+      console.log('CATEGORY AUTHOR -------->', categories[0].author);
+      res.render('CategoriesView', templateData);
+    }
+  });
+};
+
+module.exports.categoryEdit = (req, res) => {
+  Category.findById(req.param('category_id'), (err, category) => {
+    if (err) {
+      res.send('Uhoh something went wrong');
+      console.log(err);
+    } else if (category.author != req.user.id) {
+      res.send('You do not own this category.');
+    } else {
+      const templateData = {
+        title: 'Editar categoria',
+        category,
         currentUser: req.user,
       };
 
-      res.render('CompanyForm', templateData);
+      console.log('Template data from category Edit ------>', templateData);
+
+      res.render('CategoryEdit', templateData);
     }
   });
 };

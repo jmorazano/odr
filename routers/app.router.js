@@ -15,6 +15,15 @@ router.post('/write', accountController.ensureAuthenticated, appController.write
 router.get('/new-company', accountController.ensureAuthenticated, appController.newCompany);
 router.post('/new-company', accountController.ensureAuthenticated, appController.companyPost);
 
+// create category
+router.get('/categories/new-category', accountController.ensureAuthenticated, appController.newCategory);
+router.post('/categories/new-category', accountController.ensureAuthenticated, appController.categoryPost);
+
+// edit categories
+router.get('/categories', accountController.ensureAuthenticated, appController.getCategories);
+router.get('/categories/edit/:category_id', accountController.ensureAuthenticated, appController.categoryEdit);
+router.post('/categories/edit/:category_id', accountController.ensureAuthenticated, appController.categoryPost);
+
 // edit a company
 router.get('/company/edit/:company_id', accountController.ensureAuthenticated, appController.companyEdit);
 router.post('/company/edit/:company_id', accountController.ensureAuthenticated, appController.companyPost);
