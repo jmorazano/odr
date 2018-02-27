@@ -98,7 +98,7 @@ input[type="password"] {
   letter-spacing: 0.3em;
 }
 
-label {
+.group label {
   color: $muted-color;
   font-size: 16px;
   font-weight: normal;
@@ -107,6 +107,10 @@ label {
   left: 5px;
   top: 10px;
   transition: $trans-time ease all;
+}
+
+.radio-group label {
+  position: relative;
 }
 
 .bar {

@@ -2,10 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: ['whatwg-fetch', './assets/src/scripts/header.js'],
+  // entry: ['whatwg-fetch', './assets/src/scripts/header.js'],
+  entry: {
+    // this file require some files(like: big.png, big.css ...)
+    // don't concat in one file, when output
+    category: './assets/src/scripts/category-form.js',
+  },
   output: {
     path: path.resolve(__dirname, 'assets/dist/scripts/'),
-    filename: 'header.bundle.js',
+    filename: 'category-form.js',
   },
   module: {
     loaders: [

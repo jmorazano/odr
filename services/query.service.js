@@ -1,5 +1,6 @@
 const Blog = require('../models/blog');
 const Company = require('../models/company');
+const Category = require('../models/category');
 
 class QueryService {
   userClaims(userId) {
@@ -39,6 +40,18 @@ class QueryService {
     });
 
     return companyInfo;
+  }
+
+  getCategories() {
+    const categoryQuery = Category.find({});
+    const queryResults = categoryQuery.exec((error, categories) => {
+      if (error) {
+        return error;
+      }
+      return categories;
+    });
+
+    return queryResults;
   }
 }
 

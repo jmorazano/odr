@@ -5,8 +5,6 @@ const SideNavLayout = require('./components/SideNavLayout.jsx');
 class UserPosts extends React.Component {
   render() {
     const { userClaims, userCompanies, currentUser, isOwner } = this.props;
-    console.log('USER CLAIMS----->', userClaims);
-    console.log('USER COMPANIES----->', userCompanies);
     return (
       <SideNavLayout currentUser={currentUser}>
         <div className="">

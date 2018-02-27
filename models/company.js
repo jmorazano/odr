@@ -13,7 +13,7 @@ const companySchema = new Schema({
     isVerified: Boolean,
   },
   logoUrl: String,
-  category: Array,
+  category: { type: Schema.Types.ObjectId, ref: 'Category' },
   userAdmin: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
