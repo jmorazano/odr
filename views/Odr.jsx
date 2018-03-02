@@ -6,7 +6,11 @@ class Odr extends React.Component {
   render() {
     const { companies, currentUser } = this.props;
     return (
-      <SimpleLayout currentUser={currentUser} pageStyles="/assets/dist/styles/landing.css" query="">
+      <SimpleLayout
+        currentUser={currentUser}
+        pageStyles="/assets/dist/styles/landing.css"
+        pageScript="/assets/dist/scripts/homeSearch.js"
+      >
         <section className="hero">
           <div className="hero__info">
             <h1 className="hero__title">Titulo del hero</h1>
@@ -39,7 +43,7 @@ class Odr extends React.Component {
           <span className="glyphicon glyphicon-chevron-right companies-arrow companies-arrow--right" />
           <div className="centered">
             <div className="group">
-              <input type="text" required="required" />
+              <input id="search-input" type="text" required="required" />
               <span className="highlight" />
               <span className="bar" />
               <label>Buscar empresa</label>

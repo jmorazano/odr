@@ -59,7 +59,7 @@ class Header extends React.Component {
                 )}
                 {currentUser && (
                   <li>
-                    <a href="/write">Cargar Reclamo</a>
+                    <a href="/#companies">Cargar Reclamo</a>
                   </li>
                 )}
                 {currentUser && (

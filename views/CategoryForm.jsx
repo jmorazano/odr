@@ -10,7 +10,7 @@ class CategoryForm extends React.Component {
       <SideNavLayout
         currentUser={currentUser}
         pageStyles="/assets/dist/styles/category-form.css"
-        pageScript="/assets/dist/scripts/category-form.js"
+        pageScript="/assets/dist/scripts/categoryForm.js"
       >
         <div className="">
           <h1>Crear categoria</h1>

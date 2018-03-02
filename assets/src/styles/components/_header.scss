@@ -92,6 +92,12 @@ textarea {
   &:focus ~ .bar:before {
     width: $width;
   }
+
+  &.always-focus ~ label {
+    top: -14px;
+    font-size: 12px;
+    color: $hl-color;
+  }
 }
 
 input[type="password"] {

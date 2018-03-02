@@ -3,7 +3,7 @@ const Header = require('./Header');
 
 class SimpleLayout extends React.Component {
   render() {
-    const { currentUser, pageStyles } = this.props;
+    const { currentUser, pageStyles, pageScript } = this.props;
     return (
       <html>
         <head>
@@ -30,6 +30,7 @@ class SimpleLayout extends React.Component {
           </main>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js" />
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js" />
+          {pageScript && <script src={pageScript} />}
         </body>
       </html>
     );

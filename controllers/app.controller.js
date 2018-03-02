@@ -33,20 +33,35 @@ module.exports.userPosts = (req, res) => {
       Promise.all([queryService.userClaims(user.id), queryService.userCompanies(user.id)])
         .then(([userClaims, userCompanies]) => {
           const templateData = {
-            userClaims,
             userCompanies,
             currentUser: req.user,
             bloguser: user,
           };
-          // if logged in, is this user the requested user?
-          if (req.user !== undefined) {
-            templateData.isOwner = req.user.id === user.id;
-          }
 
-          res.render('UserPosts', templateData);
+          const claimsWithCompanyDetail = userClaims.map((claim) => {
+            return queryService.companyInfo(claim.company).then((companyInfo) => {
+              claim.company = companyInfo;
+              return claim;
+            });
+          });
+
+          Promise.all(claimsWithCompanyDetail).then((fullClaims) => {
+            // if logged in, is this user the requested user?
+            if (req.user !== undefined) {
+              templateData.isOwner = req.user.id === user.id;
+            }
+            templateData.userClaims = fullClaims;
+            res.render('UserPosts', templateData);
+          });
         })
         .catch(err => next(err));
     }
+  });
+};
+
+module.exports.removeClaim = (req, res) => {
+  queryService.removeClaim(req.params.claim_id).then(() => {
+    res.redirect(`/user/${req.user.username}`);
   });
 };
 
@@ -58,24 +73,74 @@ module.exports.write = (req, res) => {
 
   if (req.params.company_id !== undefined) {
     queryService.companyInfo(req.params.company_id).then((company) => {
-      templateData.companyInfo = company;
-      templateData.title = `Realizar un reclamo a ${company.legalName}`;
-      res.render('ClaimForm', templateData);
+      queryService.getCategoryInfo(company.category).then((categoryInfo) => {
+        templateData.companyInfo = company;
+        templateData.title = `Realizar un reclamo a ${company.legalName}`;
+
+        if (req.query.q1) {
+          const queryQuestionsObj = req.query;
+          const queryQuestions = Object.keys(queryQuestionsObj);
+          const lastQuestionId = queryQuestionsObj[queryQuestions[queryQuestions.length - 1]];
+          const currentLevel = categoryInfo.levels.filter((level) => {
+            const lastQuestionSearch = level.questions.filter(question => question.id === lastQuestionId);
+            if (lastQuestionSearch.length > 0) {
+              return true;
+            }
+            return false;
+          });
+
+          const nextLevelIndex = currentLevel[0].questions.filter(question => question.id === lastQuestionId)[0]
+            .nextLevel;
+
+          if (nextLevelIndex === 0) {
+            templateData.questionsPath = queryQuestions.map(key => queryQuestionsObj[key]);
+
+            console.log('questions path -->', templateData.questionsPath);
+
+            res.render('ClaimForm', templateData);
+            res.end();
+          } else {
+            templateData.questions = categoryInfo.levels.filter(
+              level => level.levelIndex === nextLevelIndex
+            )[0].questions;
+
+            let nextUrl = `/write/${company.id}?`;
+
+            queryQuestions.forEach(question => (nextUrl += `${question}=${queryQuestionsObj[question]}&`));
+            nextUrl += `q${queryQuestions.length + 1}=`;
+
+            templateData.nextUrl = nextUrl;
+            res.render('QuestionsView', templateData);
+          }
+        } else {
+          const firstLevel = categoryInfo.levels.filter(level => level.levelIndex === 1);
+          templateData.questions = firstLevel[0].questions;
+          templateData.nextUrl = `/write/${company.id}?q1=`;
+          res.render('QuestionsView', templateData);
+        }
+      });
     });
-  } else {
-    res.render('ClaimForm', templateData);
   }
 };
 
+module.exports.writeCongrats = (req, res) => {
+  const templateData = {
+    currentUser: req.user,
+  };
+
+  res.render('ClaimCongrats', templateData);
+};
+
 module.exports.writePost = (req, res) => {
-  if (req.param('claim_id') !== undefined) {
+  if (req.params.claim_id !== undefined) {
     Claim.findById(req.param('claim_id'), (err, claim) => {
       if (err) {
         res.send('unable to find the note');
       }
 
-      claim.title = req.body.title;
-      claim.body = req.body.body;
+      claim.data.purchaseDate = req.body.purchase_date;
+      claim.data.paidAmount = req.body.paid_amount;
+      claim.data.description = req.body.description;
       claim.save();
 
       res.redirect(`/edit/${claim.id}`);
@@ -90,13 +155,40 @@ module.exports.writePost = (req, res) => {
         claim.data.purchaseDate = req.body.purchase_date;
         claim.data.paidAmount = req.body.paid_amount;
         claim.data.description = req.body.description;
-
+        claim.data.questions = req.body.questions;
+        claim.data.files = req.body.files;
         claim.save();
-
-        res.redirect(`/edit/${claim.id}`);
+        res.redirect('/congrats');
       });
     }
   }
+};
+
+module.exports.edit = (req, res) => {
+  Claim.findById(req.param('claim_id'), (err, claim) => {
+    if (err) {
+      res.send('Uhoh something went wrong');
+      console.log(err);
+    } else if (claim.author != req.user.id) {
+      res.send('You do not own this claim.');
+    } else {
+      const templateData = {
+        title: 'Editar reclamo',
+        claim,
+        currentUser: req.user,
+      };
+      const formattedPurchaseDate = templateData.claim.data.purchaseDate.toISOString().slice(0, 10);
+      templateData.purchaseDateFormatted = formattedPurchaseDate;
+
+      queryService.companyInfo(claim.company).then((company) => {
+        templateData.companyInfo = company;
+        queryService.getQuestionTxt(company.category, claim.data.questions).then((questionsTxt) => {
+          templateData.questionsTxtArr = questionsTxt;
+          res.render('ClaimForm', templateData);
+        });
+      });
+    }
+  });
 };
 
 module.exports.newCompany = (req, res) => {
@@ -223,7 +315,9 @@ module.exports.getCategories = (req, res) => {
         currentUser: req.user,
       };
       console.log('CATEGORY AUTHOR -------->', categories[0].author);
-      res.render('CategoriesView', templateData);
+      // res.render('CategoriesView', templateData);
+      res.contentType('json');
+      res.send({ categories });
     }
   });
 };
@@ -245,30 +339,6 @@ module.exports.categoryEdit = (req, res) => {
       console.log('Template data from category Edit ------>', templateData);
 
       res.render('CategoryEdit', templateData);
-    }
-  });
-};
-
-module.exports.edit = (req, res) => {
-  Claim.findById(req.param('claim_id'), (err, claim) => {
-    if (err) {
-      res.send('Uhoh something went wrong');
-      console.log(err);
-    } else if (claim.author != req.user.id) {
-      res.send('You do not own this claim.');
-    } else {
-      const templateData = {
-        title: 'Editar reclamo',
-        claim,
-        currentUser: req.user,
-      };
-
-      if (claim.company !== undefined) {
-        queryService.companyInfo(claim.company).then((company) => {
-          templateData.companyInfo = company;
-          res.render('ClaimForm', templateData);
-        });
-      }
     }
   });
 };
