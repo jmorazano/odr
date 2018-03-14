@@ -8,7 +8,7 @@ router.get('/user/:username', appController.userPosts);
 
 // create a claim
 router.get('/write/:company_id', accountController.ensureAuthenticated, appController.write);
-router.post('/write', accountController.ensureAuthenticated, appController.writePost);
+// router.post('/write', accountController.ensureAuthenticated, appController.writePost);
 router.get('/congrats', accountController.ensureAuthenticated, appController.writeCongrats);
 
 // remove claim

@@ -315,9 +315,9 @@ module.exports.getCategories = (req, res) => {
         currentUser: req.user,
       };
       console.log('CATEGORY AUTHOR -------->', categories[0].author);
-      // res.render('CategoriesView', templateData);
-      res.contentType('json');
-      res.send({ categories });
+      res.render('CategoriesView', templateData);
+      // res.contentType('json');
+      // res.send({ categories });
     }
   });
 };
