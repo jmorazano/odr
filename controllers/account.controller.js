@@ -8,11 +8,17 @@ const User = require('../models/user');
 
 exports.ensureAuthenticated = (req, res, next) => {
   console.log(`is Authenticated: ${req.isAuthenticated()}`);
-
+  
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  
+  const templateData = {
+    user: req.user,
+    nextUrl: req.url,
+  };
+  // res.redirect('/login');
+  res.render('Authentication/Login', { templateData });
 };
 
 // Login display
@@ -26,7 +32,12 @@ exports.login = (req, res) => {
 
 // Login post
 exports.login_post = (req, res) => {
-  res.redirect(`/user/${req.user.username}`);
+  console.log('reqqq next url', req.body.next_url);
+  if (req.body.next_url) {
+    res.redirect(req.body.next_url);
+  } else {
+    res.redirect(`/user/${req.user.username}`);
+  }
 };
 
 // logout

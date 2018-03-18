@@ -10,6 +10,8 @@ const claimSchema = new Schema({
     purchaseDate: Date,
     paidAmount: Number,
     description: String,
+    questions: [String],
+    files: [String],
   },
 });
 

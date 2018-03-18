@@ -6,44 +6,36 @@ class UserPosts extends React.Component {
   render() {
     const { userClaims, userCompanies, currentUser, isOwner } = this.props;
     return (
-      <SideNavLayout currentUser={currentUser}>
-        <div className="">
-          <div className="">
-            <h1>Reclamos de {currentUser.username}</h1>
-            <br />
-            {userClaims &&
-              userClaims.map(post => (
-                <div>
-                  <h2>
-                    {post.title}
-                    {isOwner && (
-                      <a href={`/edit/${post.id}`} className="btn btn-primary btn-small">
-                        edit
-                      </a>
-                    )}
-                  </h2>
-                  <p>{post.body}</p>
-                </div>
-              ))}
+      <SideNavLayout pageStyles="/assets/dist/styles/user-admin.css" currentUser={currentUser}>
+        <div className="admin-wrapper">
+          <div className="claim-wrapper">
+            <h3 className="admin-title">Ultimos reclamos</h3>
+            <ul className="claim-list list-shadow">
+              {userClaims &&
+                userClaims.map(claim => (
+                  <li className="claim-list__item list-shadow__item">
+                    <a href={`/edit/${claim.id}`} className="">
+                      <img src={claim.company.logoUrl} alt={claim.company.legalName} />
+                      <span>{claim.data.description}</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
 
-          <div className="span9">
-            <h1>Empresas de {currentUser.username}</h1>
-            <br />
-            {userCompanies &&
-              userCompanies.map(company => (
-                <div>
-                  <h2>
-                    {company.legalName}
-                    {isOwner && (
-                      <a href={`/company/edit/${company.id}`} className="btn btn-primary btn-small">
-                        edit
-                      </a>
-                    )}
-                  </h2>
-                  <p>{company.taxId}</p>
-                </div>
-              ))}
+          <div className="company-wrapper">
+            <h3 className="admin-title">Empresas administradas</h3>
+            <ul className="company-list list-shadow">
+              {userCompanies &&
+                userCompanies.map(company => (
+                  <li className="company-list__item list-shadow__item">
+                    <a href={`/company/edit/${company.id}`} className="">
+                      <img src={company.logoUrl} alt={company.legalName} />
+                      <span>{company.legalName}</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </div>
         </div>
       </SideNavLayout>

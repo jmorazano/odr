@@ -4,21 +4,31 @@ const SimpleLayout = require('./components/SimpleLayout');
 
 class BlogForm extends React.Component {
   render() {
-    const { currentUser, title, claim, companyInfo } = this.props;
+    const {
+      currentUser,
+      questionsTxtArr,
+      purchaseDateFormatted,
+      claim,
+      companyInfo,
+      questionsPath,
+    } = this.props;
 
     return (
       <SimpleLayout currentUser={currentUser} pageStyles="/assets/dist/styles/claim-form.css">
         <div className="company-info">
           <img className="company-info__logo" src={companyInfo.logoUrl} alt={companyInfo.legalName} />
-          <h3 className="company-info__name">{companyInfo.legalName}</h3>
+          <h2 className="company-info__name">{companyInfo.legalName}</h2>
           <p className="company-info__txt">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quis unde ea dolores eius enim omnis
             tempora alias quos asperiores delectus sed!
           </p>
         </div>
 
+        {claim && <h4>Reclamo para:</h4>}
+        {questionsTxtArr && questionsTxtArr.map(question => <p>{question}</p>)}
+
         <div className="claim-form">
-          <h1>{title}</h1>
+          <h3>Detalle de su reclamo</h3>
           <form method="POST" action="/write">
             <div className="group">
               <input
@@ -26,7 +36,8 @@ class BlogForm extends React.Component {
                 required
                 name="purchase_date"
                 id="purchase_date"
-                value={claim && claim.data.purchaseDate}
+                value={claim && purchaseDateFormatted}
+                className="always-focus"
               />
               <span className="highlight" />
               <span className="bar" />
@@ -55,10 +66,19 @@ class BlogForm extends React.Component {
               <label htmlFor="description">Descripción</label>
             </div>
 
+            <div className="group">
+              <input multiple type="file" name="file" id="files" />
+              <span className="highlight" />
+              <span className="bar" />
+              <label htmlFor="file">Adjuntar archivos</label>
+            </div>
+
+            {questionsPath && questionsPath.map(question => <input type="hidden" name="questions" value={question} />)}
             {claim && <input type="hidden" name="claim_id" id="claim_id" value={claim.id} />}
             {companyInfo && <input type="hidden" name="company_id" id="company_id" value={companyInfo.id} />}
 
             <input type="submit" className="odr-btn" value="Guardar" />
+            {claim && <a className="remove-link" href={`/remove/${claim.id}`}>Eliminar reclamo</a>}
           </form>
         </div>
       </SimpleLayout>

@@ -1,0 +1,51 @@
+.admin-wrapper {
+  padding: 10px;
+  max-width: 700px;
+}
+
+.list-shadow {
+  list-style: none;
+  padding: 0;
+  box-shadow: 0px 2px 15px -4px #777;
+  overflow: auto;
+}
+
+.admin-title {
+  margin: 20px 0;
+}
+
+.company-wrapper {
+  padding-top: 10px;
+}
+
+.list-shadow__item {
+  padding: 10px;
+  margin: 10px;
+  border-bottom: 1px solid #f0f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  img {
+    max-width: 55px;
+    margin-right: 10px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    color: #666;
+    min-height: 32px;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

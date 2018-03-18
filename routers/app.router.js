@@ -7,9 +7,12 @@ router.get('/', appController.odr);
 router.get('/user/:username', appController.userPosts);
 
 // create a claim
-router.get('/write', accountController.ensureAuthenticated, appController.write);
 router.get('/write/:company_id', accountController.ensureAuthenticated, appController.write);
 router.post('/write', accountController.ensureAuthenticated, appController.writePost);
+router.get('/congrats', accountController.ensureAuthenticated, appController.writeCongrats);
+
+// remove claim
+router.get('/remove/:claim_id', accountController.ensureAuthenticated, appController.removeClaim);
 
 // create company
 router.get('/new-company', accountController.ensureAuthenticated, appController.newCompany);

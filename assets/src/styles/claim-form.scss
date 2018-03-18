@@ -1,0 +1,45 @@
+.main__content {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.company-info__logo {
+  max-height: 80px;
+  width: auto;
+  margin: auto;
+  display: block;
+}
+
+.question-list {
+  list-style: none;
+  padding: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.group-file label {
+  padding: 10px;
+  border: 1px solid #333;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.question-list__item {
+  border: 1px solid #999;
+  margin-bottom: 5px;
+
+  a {
+    color: #333;
+    display: block;
+    padding: 15px;
+  }
+}
+
+.remove-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+}

@@ -6,11 +6,12 @@ module.exports = {
   entry: {
     // this file require some files(like: big.png, big.css ...)
     // don't concat in one file, when output
-    category: './assets/src/scripts/category-form.js',
+    categoryForm: './assets/src/scripts/category-form.js',
+    homeSearch: './assets/src/scripts/home-search.js',
   },
   output: {
     path: path.resolve(__dirname, 'assets/dist/scripts/'),
-    filename: 'category-form.js',
+    filename: '[name].js',
   },
   module: {
     loaders: [
