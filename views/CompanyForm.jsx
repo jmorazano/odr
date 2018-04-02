@@ -15,7 +15,7 @@ class BlogForm extends React.Component {
         </div>
         <div className="">
           <div className="centered">
-            <form method="POST" action="/new-company">
+            <form method="POST">
               <div className="group">
                 <input type="text" required name="legal_name" id="id_legal_name" value={company && company.legalName} />
                 <span className="highlight" />

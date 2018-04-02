@@ -4,6 +4,7 @@ const serverAssets = require('express').static;
 const routerApi = require('./api.router.js');
 const routerApp = require('./app.router.js');
 const routerAccount = require('./account.router.js');
+const routerAdmin = require('./admin.router.js');
 const errorMiddleware = require('./../middlewares/error.middleware.js');
 
 module.exports.init = (app, path) => {
@@ -12,6 +13,7 @@ module.exports.init = (app, path) => {
 
   // Set routers
   app.use('/', routerAccount, routerApp); // TODO: fix error middleware
+  app.use('/admin', routerAdmin);
   app.use('/api', routerApi, errorMiddleware.api);
 
   // Set default route TODO: define default route behaviour

@@ -29,7 +29,8 @@
     "watch:scripts": "onchange \"assets/src/scripts\" -- npm run build:scripts",
     "watch:images": "onchange \"assets/src/images\" -- npm run build:images",
     "watch": "npm-run-all -p watch:styles watch:scripts watch:images",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "heroku:push": "git push heroku yourbranch:master"
   },
   "repository": {
     "type": "git",

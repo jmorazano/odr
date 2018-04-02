@@ -44,7 +44,7 @@ class Header extends React.Component {
                 </li>
                 {this.props.currentUser && (
                   <li>
-                    <a href={`/user/${currentUser.username}`}>Administrador</a>
+                    <a href={`/admin/${currentUser.username}`}>Administrador</a>
                   </li>
                 )}
                 {!currentUser && (

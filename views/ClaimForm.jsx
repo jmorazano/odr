@@ -4,14 +4,7 @@ const SimpleLayout = require('./components/SimpleLayout');
 
 class BlogForm extends React.Component {
   render() {
-    const {
-      currentUser,
-      questionsTxtArr,
-      purchaseDateFormatted,
-      claim,
-      companyInfo,
-      questionsPath,
-    } = this.props;
+    const { currentUser, questionsTxtArr, purchaseDateFormatted, claim, companyInfo, questionsPath } = this.props;
 
     return (
       <SimpleLayout currentUser={currentUser} pageStyles="/assets/dist/styles/claim-form.css">
@@ -29,7 +22,7 @@ class BlogForm extends React.Component {
 
         <div className="claim-form">
           <h3>Detalle de su reclamo</h3>
-          <form method="POST" action="/write">
+          <form method="POST" action={questionsTxtArr ? '' : '/write'}>
             <div className="group">
               <input
                 type="date"
@@ -41,7 +34,7 @@ class BlogForm extends React.Component {
               />
               <span className="highlight" />
               <span className="bar" />
-              <label htmlFor="purchase_date">Fecha de compra</label>
+              <label htmlFor="purchase_date">Fecha</label>
             </div>
 
             <div className="group">
@@ -54,7 +47,7 @@ class BlogForm extends React.Component {
               />
               <span className="highlight" />
               <span className="bar" />
-              <label htmlFor="paid_amount">Monto abonado</label>
+              <label htmlFor="paid_amount">Monto a reclamar</label>
             </div>
 
             <div className="group">
@@ -78,7 +71,11 @@ class BlogForm extends React.Component {
             {companyInfo && <input type="hidden" name="company_id" id="company_id" value={companyInfo.id} />}
 
             <input type="submit" className="odr-btn" value="Guardar" />
-            {claim && <a className="remove-link" href={`/remove/${claim.id}`}>Eliminar reclamo</a>}
+            {claim && (
+              <a className="remove-link" href={`/remove/${claim.id}`}>
+                Eliminar reclamo
+              </a>
+            )}
           </form>
         </div>
       </SimpleLayout>

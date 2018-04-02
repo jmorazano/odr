@@ -2,17 +2,18 @@ const async = require('async');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
+const passport = require('passport');
 
 // models
 const User = require('../models/user');
 
 exports.ensureAuthenticated = (req, res, next) => {
   console.log(`is Authenticated: ${req.isAuthenticated()}`);
-  
+
   if (req.isAuthenticated()) {
     return next();
   }
-  
+
   const templateData = {
     user: req.user,
     nextUrl: req.url,
@@ -36,7 +37,7 @@ exports.login_post = (req, res) => {
   if (req.body.next_url) {
     res.redirect(req.body.next_url);
   } else {
-    res.redirect(`/user/${req.user.username}`);
+    res.redirect(`/admin/${req.user.username}`);
   }
 };
 
@@ -68,7 +69,9 @@ exports.register_post = (req, res) => {
         console.log('Error al registrar:', err);
         return res.render('Authentication/Register');
       }
-      res.redirect('/write');
+      passport.authenticate('local')(req, res, () => {
+        res.redirect('/');
+      });
     }
   );
 };

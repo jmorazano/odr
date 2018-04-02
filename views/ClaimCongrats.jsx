@@ -11,7 +11,7 @@ class QuestionsView extends React.Component {
         <div className="congrats-wrapper">
           <h2 className="congrats-wrapper__title">Tu reclamo ha sido registrado</h2>
           <p>Para ver en que estado se encuentra, puedes entrar a tu administrador cuando lo desees</p>
-          <a className="odr-btn" href={`/user/${currentUser.username}`}>Ir al Administrador</a>
+          <a className="odr-btn" href={`/admin/${currentUser.username}`}>Ir al Administrador</a>
         </div>
       </SimpleLayout>
     );

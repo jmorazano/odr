@@ -23,45 +23,9 @@ module.exports.odr = (req, res) => {
   });
 };
 
-module.exports.userPosts = (req, res) => {
-  const userQuery = User.findOne({ username: req.params.username });
-
-  userQuery.exec((err, user) => {
-    if (err) {
-      res.send('unable to find user');
-    } else {
-      Promise.all([queryService.userClaims(user.id), queryService.userCompanies(user.id)])
-        .then(([userClaims, userCompanies]) => {
-          const templateData = {
-            userCompanies,
-            currentUser: req.user,
-            bloguser: user,
-          };
-
-          const claimsWithCompanyDetail = userClaims.map((claim) => {
-            return queryService.companyInfo(claim.company).then((companyInfo) => {
-              claim.company = companyInfo;
-              return claim;
-            });
-          });
-
-          Promise.all(claimsWithCompanyDetail).then((fullClaims) => {
-            // if logged in, is this user the requested user?
-            if (req.user !== undefined) {
-              templateData.isOwner = req.user.id === user.id;
-            }
-            templateData.userClaims = fullClaims;
-            res.render('UserPosts', templateData);
-          });
-        })
-        .catch(err => next(err));
-    }
-  });
-};
-
 module.exports.removeClaim = (req, res) => {
   queryService.removeClaim(req.params.claim_id).then(() => {
-    res.redirect(`/user/${req.user.username}`);
+    res.redirect(`/admin/${req.user.username}`);
   });
 };
 
@@ -94,9 +58,6 @@ module.exports.write = (req, res) => {
 
           if (nextLevelIndex === 0) {
             templateData.questionsPath = queryQuestions.map(key => queryQuestionsObj[key]);
-
-            console.log('questions path -->', templateData.questionsPath);
-
             res.render('ClaimForm', templateData);
             res.end();
           } else {
@@ -270,9 +231,6 @@ module.exports.newCategory = (req, res) => {
 };
 
 module.exports.categoryPost = (req, res) => {
-  console.log('--------- ajax POST arrived ---------');
-  console.log('Body request----->', req.body.name);
-
   if (req.params.category_id !== undefined) {
     Category.findById(req.param('category_id'), (err, category) => {
       if (err) {
@@ -335,8 +293,6 @@ module.exports.categoryEdit = (req, res) => {
         category,
         currentUser: req.user,
       };
-
-      console.log('Template data from category Edit ------>', templateData);
 
       res.render('CategoryEdit', templateData);
     }

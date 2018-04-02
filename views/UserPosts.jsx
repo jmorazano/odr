@@ -23,20 +23,21 @@ class UserPosts extends React.Component {
             </ul>
           </div>
 
-          <div className="company-wrapper">
-            <h3 className="admin-title">Empresas administradas</h3>
-            <ul className="company-list list-shadow">
-              {userCompanies &&
-                userCompanies.map(company => (
-                  <li className="company-list__item list-shadow__item">
-                    <a href={`/company/edit/${company.id}`} className="">
-                      <img src={company.logoUrl} alt={company.legalName} />
-                      <span>{company.legalName}</span>
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
+          {userCompanies &&
+            <div className="company-wrapper">
+              <h3 className="admin-title">Empresas administradas</h3>
+              <ul className="company-list list-shadow">
+                  {userCompanies.map(company => (
+                    <li className="company-list__item list-shadow__item">
+                      <a href={`/company/edit/${company.id}`} className="">
+                        <img src={company.logoUrl} alt={company.legalName} />
+                        <span>{company.legalName}</span>
+                      </a>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          }
         </div>
       </SideNavLayout>
     );

@@ -1,9 +1,8 @@
 const React = require('react');
-const Suggest = require('./Suggest.jsx');
 
 class Header extends React.Component {
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, hasCompanies } = this.props;
 
     return (
       <div>
@@ -17,27 +16,34 @@ class Header extends React.Component {
         </div>
         <div className="nav-items">
           <div className="nav-item">
-            <a href="#" className="nav-item__link">
+            <a href={`/admin/${currentUser.username}`} className="nav-item__link">
               Resumen
             </a>
           </div>
           <div className="nav-item">
-            <a href="#" className="nav-item__link">
+            <a href={`/admin/${currentUser.username}/claims`} className="nav-item__link">
               Mis Reclamos
             </a>
           </div>
+          {hasCompanies && (
+            <div className="nav-item">
+              <a href={`/admin/${currentUser.username}/companies`} className="nav-item__link">
+                Mis Empresas
+              </a>
+            </div>
+          )}
           <div className="nav-item">
-            <a href="#" className="nav-item__link">
+            <a href={`/admin/${currentUser.username}/reputation`} className="nav-item__link">
               Mi Reputación
             </a>
           </div>
           <div className="nav-item">
-            <a href="#" className="nav-item__link">
+            <a href={`/admin/${currentUser.username}/help`} className="nav-item__link">
               Ayuda
             </a>
           </div>
           <div className="nav-item">
-            <a href="#" className="nav-item__link">
+            <a href={`/admin/${currentUser.username}/user-configuration`} className="nav-item__link">
               Configuración
             </a>
           </div>
