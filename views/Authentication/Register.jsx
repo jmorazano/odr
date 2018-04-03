@@ -30,6 +30,8 @@ class Register extends React.Component {
               <input type="password" name="confirm" id="confirm" />
             </div>
 
+            {templateData.nextUrl && <input type="hidden" name="next_url" value={templateData.nextUrl} />}
+
             <div className="field">
               <input type="submit" className="btn btn-primary" value="Register" />
             </div>

@@ -35,7 +35,9 @@ class Login extends React.Component {
             <a href="/forgot">Te olvidaste tu contraseña?</a>
           </div>
           <div>
-            <a href="/register">No tenés cuenta? Registrate Acá</a>
+            <a href={`/register${templateData.nextUrl ? `?next_url=${escape(templateData.nextUrl)}` : ''}`}>
+              No tenés cuenta? Registrate Acá
+            </a>
           </div>
         </div>
       </SimpleLayout>

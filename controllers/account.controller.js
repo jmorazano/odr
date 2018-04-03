@@ -49,7 +49,12 @@ exports.logout = (req, res) => {
 };
 
 exports.register = (req, res) => {
-  res.render('Authentication/Register', {});
+  console.log('next url!!!', req.query.next_url);
+  const templateData = {};
+  if (req.query.next_url) {
+    templateData.nextUrl = req.query.next_url;
+  }
+  res.render('Authentication/Register', { templateData });
 };
 
 exports.register_post = (req, res) => {
@@ -70,7 +75,11 @@ exports.register_post = (req, res) => {
         return res.render('Authentication/Register');
       }
       passport.authenticate('local')(req, res, () => {
-        res.redirect('/');
+        if (req.body.next_url) {
+          res.redirect(req.body.next_url);
+        } else {
+          res.redirect('/');
+        }
       });
     }
   );
