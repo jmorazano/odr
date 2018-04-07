@@ -4,11 +4,43 @@
   margin: auto;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+.claim-congrats {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  width: 100%;
+
+  .main__content {
+    padding: 0;
+    height: 100%;
+    max-width: none;
+  }
+}
+
 .company-info__logo {
   max-height: 80px;
   width: auto;
   margin: auto;
   display: block;
+}
+
+.congrats-wrapper {
+  padding: 30px;
+  height: 100%;
+  
+  p {
+    padding: 10px 0;
+  }
+}
+
+.pattern-bg {
+  background-color: #ffffff;
+  background-image: url('https://www.transparenttextures.com/patterns/black-thread-light.png');
 }
 
 .question-list {

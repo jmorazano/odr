@@ -33,7 +33,7 @@ class Register extends React.Component {
             {templateData.nextUrl && <input type="hidden" name="next_url" value={templateData.nextUrl} />}
 
             <div className="field">
-              <input type="submit" className="btn btn-primary" value="Register" />
+              <input type="submit" className="odr-btn" value="Register" />
             </div>
           </form>
         </div>

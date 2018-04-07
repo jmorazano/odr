@@ -78,7 +78,10 @@ exports.register_post = (req, res) => {
         if (req.body.next_url) {
           res.redirect(req.body.next_url);
         } else {
-          res.redirect('/');
+          const templateData = {
+            currentUser: req.user,
+          };
+          res.render('Authentication/RegisterCongrats', templateData);
         }
       });
     }

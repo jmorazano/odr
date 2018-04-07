@@ -58,8 +58,12 @@ module.exports.write = (req, res) => {
 
           if (nextLevelIndex === 0) {
             templateData.questionsPath = queryQuestions.map(key => queryQuestionsObj[key]);
-            res.render('ClaimForm', templateData);
-            res.end();
+
+            queryService.getQuestionTxt(company.category, templateData.questionsPath).then((questionsTxt) => {
+              templateData.questionsTxtArr = questionsTxt;
+              res.render('ClaimForm', templateData);
+              res.end();
+            });
           } else {
             templateData.questions = categoryInfo.levels.filter(
               level => level.levelIndex === nextLevelIndex
@@ -104,7 +108,7 @@ module.exports.writePost = (req, res) => {
       claim.data.description = req.body.description;
       claim.save();
 
-      res.redirect(`/edit/${claim.id}`);
+      res.redirect(`/admin/${req.user.username}`);
     });
   } else {
     // Create a new claim post

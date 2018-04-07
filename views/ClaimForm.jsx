@@ -47,7 +47,7 @@ class BlogForm extends React.Component {
               />
               <span className="highlight" />
               <span className="bar" />
-              <label htmlFor="paid_amount">Monto a reclamar</label>
+              <label htmlFor="paid_amount">Monto a reclamar (AR$)</label>
             </div>
 
             <div className="group">

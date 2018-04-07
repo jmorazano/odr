@@ -3,7 +3,7 @@ const Header = require('./Header');
 
 class SimpleLayout extends React.Component {
   render() {
-    const { currentUser, pageStyles, pageScript } = this.props;
+    const { currentUser, pageStyles, pageScript, className } = this.props;
     return (
       <html>
         <head>
@@ -25,7 +25,7 @@ class SimpleLayout extends React.Component {
           <header role="banner" data-js="header" className="header">
             <Header currentUser={currentUser} query={this.props.query} />
           </header>
-          <main role="main" className="main">
+          <main role="main" className={`main ${className}`}>
             <div className="main__content">{this.props.children}</div>
           </main>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js" />
