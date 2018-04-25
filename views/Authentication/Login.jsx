@@ -5,10 +5,12 @@ const SimpleLayout = require('./../components/SimpleLayout');
 class Login extends React.Component {
   render() {
     const { templateData } = this.props;
-    console.log(`template dataaaaaa: ${templateData.nextUrl}`);
     return (
       <SimpleLayout pageStyles="/assets/dist/styles/login.css" currentUser={templateData.currentUser}>
         <div className="login-wrapper">
+          {templateData.message && (
+            <div className="message-wrapper">{templateData.message}</div>
+          )}
           <h3>Inicia sesión</h3>
           <form className="form-group" action="/login" method="POST">
             <div className="group">

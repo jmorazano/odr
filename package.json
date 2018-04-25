@@ -30,7 +30,7 @@
     "watch:images": "onchange \"assets/src/images\" -- npm run build:images",
     "watch": "npm-run-all -p watch:styles watch:scripts watch:images",
     "postinstall": "npm run build",
-    "heroku:push": "git push heroku yourbranch:master"
+    "heroku:push": "git push heroku feature/admin-sidebar:master"
   },
   "repository": {
     "type": "git",

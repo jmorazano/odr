@@ -184,10 +184,9 @@ module.exports.companyPost = (req, res) => {
       company.category = req.body.category;
       company.save();
 
-      res.redirect(`user/${req.user.username}`);
+      res.redirect(`admin/${req.user.username}`);
     });
   } else {
-    // Create a new blog post
     const company = new Company();
     company.legalName = req.body.legal_name;
     company.urltitle = req.body.legal_name
@@ -201,7 +200,7 @@ module.exports.companyPost = (req, res) => {
 
     company.save();
 
-    res.redirect(`user/${req.user.username}`);
+    res.redirect(`admin/${req.user.username}`);
   }
 };
 

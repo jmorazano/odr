@@ -7,7 +7,14 @@ const passport = require('passport');
 // -------------------- User login auth --------------------
 // login GET + POST
 router.get('/login', accountController.login);
-router.post('/login', passport.authenticate('local'), accountController.login_post);
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true,
+  }),
+  accountController.login_post
+);
 
 // register GET + POST
 router.get('/register', accountController.register);

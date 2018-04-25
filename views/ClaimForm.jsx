@@ -22,7 +22,7 @@ class BlogForm extends React.Component {
 
         <div className="claim-form">
           <h3>Detalle de su reclamo</h3>
-          <form method="POST" action={questionsTxtArr ? '' : '/write'}>
+          <form method="POST" action={claim ? '' : '/write'}>
             <div className="group">
               <input
                 type="date"

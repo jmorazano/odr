@@ -26,14 +26,13 @@ exports.ensureAuthenticated = (req, res, next) => {
 exports.login = (req, res) => {
   const templateData = {
     user: req.user,
+    message: req.session.messages ? req.session.messages[0] : undefined,
   };
 
   res.render('Authentication/Login', { templateData });
 };
 
-// Login post
 exports.login_post = (req, res) => {
-  console.log('reqqq next url', req.body.next_url);
   if (req.body.next_url) {
     res.redirect(req.body.next_url);
   } else {
@@ -49,7 +48,6 @@ exports.logout = (req, res) => {
 };
 
 exports.register = (req, res) => {
-  console.log('next url!!!', req.query.next_url);
   const templateData = {};
   if (req.query.next_url) {
     templateData.nextUrl = req.query.next_url;
