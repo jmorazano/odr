@@ -6,6 +6,7 @@ const claimSchema = new Schema({
   dateCreated: { type: Date, default: Date.now },
   author: { type: Schema.Types.ObjectId, ref: 'User' },
   company: { type: Schema.Types.ObjectId, ref: 'Company' },
+  status: String,
   data: {
     purchaseDate: Date,
     paidAmount: Number,

@@ -8,21 +8,8 @@ class UserPosts extends React.Component {
     return (
       <SideNavLayout pageStyles="/assets/dist/styles/user-admin.css" currentUser={currentUser}>
         <div className="admin-wrapper">
-          <div className="claim-wrapper">
-            <h3 className="admin-title">Ultimos reclamos</h3>
-            <ul className="claim-list list-shadow">
-              {userClaims &&
-                userClaims.map(claim => (
-                  <li className="claim-list__item list-shadow__item">
-                    <a href={`/edit/${claim.id}`} className="">
-                      <img src={claim.company.logoUrl} alt={claim.company.legalName} />
-                      <span>{claim.data.description}</span>
-                    </a>
-                  </li>
-                ))}
-            </ul>
-          </div>
-
+          <p>Aquí debería ir el resumen de su cuenta, por ejemplo:</p>
+          <p>Cantidad de reclamos abiertos, mensajes pendientes (notificaciones)</p>
           {userCompanies &&
             <div className="company-wrapper">
               <h3 className="admin-title">Empresas administradas</h3>

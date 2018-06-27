@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Claim = require('../models/claim');
 const queryService = require('../services/query.service');
 
 module.exports.adminRoot = (req, res) => {
@@ -65,10 +66,37 @@ module.exports.userClaims = (req, res) => {
               templateData.isOwner = req.user.id === user.id;
             }
             templateData.userClaims = fullClaims;
-            res.render('UserPosts', templateData);
+            res.render('UserClaims', templateData);
           });
         })
         .catch(err => next(err));
+    }
+  });
+};
+
+module.exports.claimDetail = (req, res) => {
+  Claim.findById(req.param('claim_id'), (err, claim) => {
+    if (err) {
+      res.send('Uhoh something went wrong');
+      console.log(err);
+    } else if (claim.author != req.user.id) {
+      res.send('You do not own this claim.');
+    } else {
+      const templateData = {
+        claim,
+        currentUser: req.user,
+      };
+
+      const formattedPurchaseDate = templateData.claim.data.purchaseDate.toISOString().slice(0, 10);
+      templateData.purchaseDateFormatted = formattedPurchaseDate;
+
+      queryService.companyInfo(claim.company).then((company) => {
+        templateData.companyInfo = company;
+        queryService.getQuestionTxt(company.category, claim.data.questions).then((questionsTxt) => {
+          templateData.questionsTxtArr = questionsTxt;
+          res.render('ClaimDetail', templateData);
+        });
+      });
     }
   });
 };
@@ -86,7 +114,7 @@ module.exports.help = (req, res) => {
     currentUser: req.user,
   };
 
-  res.render('UserReputation', templateData);
+  res.render('Help', templateData);
 };
 
 module.exports.userConfig = (req, res) => {
@@ -94,5 +122,5 @@ module.exports.userConfig = (req, res) => {
     currentUser: req.user,
   };
 
-  res.render('UserReputation', templateData);
+  res.render('UserConfig', templateData);
 };
