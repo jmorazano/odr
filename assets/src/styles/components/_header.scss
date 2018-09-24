@@ -100,7 +100,7 @@ textarea {
   }
 }
 
-input[type="password"] {
+input[type='password'] {
   letter-spacing: 0.3em;
 }
 
@@ -115,7 +115,7 @@ input[type="password"] {
   transition: $trans-time ease all;
 }
 
-.radio-group label {
+.radio-group label  {
   position: relative;
 }
 
@@ -124,7 +124,7 @@ input[type="password"] {
   display: block;
   width: $width;
   &:before {
-    content: "";
+    content: '';
     height: 2px;
     width: 0;
     bottom: 0px;
@@ -147,8 +147,22 @@ input[type="password"] {
   color: #fff !important;
 }
 
+.admin-sublist {
+  padding-left: 30px;
+  li {
+    margin-bottom: 8px;
+    a {
+      color: #999;
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .navbar-nav {
     float: right;
+  }
+
+  .admin-sublist {
+    display: none;
   }
 }

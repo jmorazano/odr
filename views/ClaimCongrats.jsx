@@ -7,9 +7,14 @@ class ClaimCongrats extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <SimpleLayout className="claim-congrats" currentUser={currentUser} pageStyles="/assets/dist/styles/claim-form.css">
+      <SimpleLayout
+        className="claim-congrats"
+        currentUser={currentUser}
+        pageStyles="/assets/dist/styles/claim-form.css"
+      >
         <div className="congrats-wrapper pattern-bg">
           <h2 className="congrats-wrapper__title">Tu reclamo ha sido registrado</h2>
+          <p>La empresa tiene 5 días hábiles para responder a tu reclamo. Te contactaremos apenas lo haga.</p>
           <p>Para ver en que estado se encuentra, puedes entrar a tu administrador cuando lo desees</p>
           <a className="odr-btn" href={`/admin/${currentUser.username}`}>
             Ir al Administrador

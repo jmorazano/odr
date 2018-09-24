@@ -56,7 +56,7 @@ class BlogForm extends React.Component {
               </textarea>
               <span className="highlight" />
               <span className="bar" />
-              <label htmlFor="description">Descripción</label>
+              <label htmlFor="description">Solución Buscada</label>
             </div>
 
             <div className="group">
@@ -65,6 +65,13 @@ class BlogForm extends React.Component {
               <span className="bar" />
               <label htmlFor="file">Adjuntar archivos</label>
             </div>
+            <h4>Seleccionar codenunciado en caso que necesite</h4>
+            <select>
+              <option value="claro">Claro</option>
+              <option value="personal">Personal</option>
+              <option value="movicom">Movicom</option>
+              <option value="fibertel">Fibertel</option>
+            </select>
 
             {questionsPath && questionsPath.map(question => <input type="hidden" name="questions" value={question} />)}
             {claim && <input type="hidden" name="claim_id" id="claim_id" value={claim.id} />}

@@ -1,0 +1,171 @@
+.list-shadow {
+  list-style: none;
+  padding: 0;
+  box-shadow: 0px 2px 15px -4px #777;
+  overflow: auto;
+}
+
+.claim-header {
+  display: flex;
+  align-items: center;
+}
+
+.claim-header__title {
+  margin: 0 30px 0 0;
+}
+
+.status-label {
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+
+  &--active {
+    background-color: green;
+  }
+}
+
+.claim-wrapper {
+  display: flex;
+  margin-top: 30px;
+}
+
+.questions {
+  padding-top: 20px;
+
+  img {
+    max-width: 100px;
+    margin-bottom: 20px;
+  }
+}
+
+.comunication-column {
+  min-width: 60%;
+  padding-right: 30px;
+
+  .chat-window {
+    height: 480px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-window__meeting-info {
+    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0px 3px 8px -5px #333;
+    margin-bottom: 10px;
+  }
+
+  .chat-window__msgs {
+    flex-grow: 1;
+
+    &--empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .chat-window__write {
+    display: flex;
+    align-items: center;
+    background-color: #eee;
+    padding: 10px;
+
+    input,
+    textarea {
+      font-size: 14px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 20px;
+      background-color: white;
+      margin-right: 10px;
+    }
+
+    img {
+      max-width: 50px;
+      cursor: pointer;
+    }
+  }
+}
+
+.claim-details {
+  flex-grow: 1;
+
+  .attached-files {
+    position: relative;
+    min-height: 230px;
+    margin: 23px 0;
+  }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    border-bottom: 1px solid #f0f0f0f0;
+    justify-content: space-between;
+
+    img {
+      max-width: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .add-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    img {
+      max-width: 46px;
+      cursor: pointer;
+    }
+  }
+
+  .odr-btn {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .cancel-btn {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 300px) {
+  .go-back {
+    display: block;
+    margin: 16px;
+  }
+
+  .claim-header {
+    margin: 30px 16px 10px;
+
+    &__title {
+      font-size: 24px;
+    }
+  }
+
+  .questions {
+    margin: 0 16px;
+  }
+
+  .claim-wrapper {
+    flex-direction: column;
+    padding: 16px;
+    margin: 0;
+
+    .comunication-column {
+      padding: 0;
+      margin-bottom: 20px;
+
+      .chat-window {
+        height: 360px;
+      }
+    }
+  }
+}

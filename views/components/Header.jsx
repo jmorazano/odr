@@ -45,6 +45,33 @@ class Header extends React.Component {
                 {this.props.currentUser && (
                   <li>
                     <a href={`/admin/${currentUser.username}`}>Administrador</a>
+                    <ul className="admin-sublist">
+                      <li>
+                        <a href={`/admin/${currentUser.username}`} className="nav-item__link">
+                          Resumen
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`/admin/${currentUser.username}/claims`} className="nav-item__link">
+                          Mis Reclamos
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`/admin/${currentUser.username}/reputation`} className="nav-item__link">
+                          Mi Reputación
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`/admin/${currentUser.username}/help`} className="nav-item__link">
+                          Ayuda
+                        </a>
+                      </li>
+                      <li>
+                        <a href={`/admin/${currentUser.username}/user-configuration`} className="nav-item__link">
+                          Configuración
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                 )}
                 {!currentUser && (
