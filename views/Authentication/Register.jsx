@@ -30,6 +30,11 @@ class Register extends React.Component {
               <input type="password" name="confirm" id="confirm" />
             </div>
 
+            <div className="user-type">
+              <input type="radio" defaultChecked name="userType" value="customer" /> Consumidor/Cliente
+              <input type="radio" name="userType" value="company" /> Empresa
+            </div>
+
             {templateData.nextUrl && <input type="hidden" name="next_url" value={templateData.nextUrl} />}
 
             <div className="field">
