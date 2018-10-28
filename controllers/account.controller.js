@@ -60,10 +60,6 @@ exports.register_post = (req, res) => {
     return res.render('Authentication/Register');
   }
 
-  console.log('-------->', req.body);
-
-  res.send(req.body);
-
   User.register(
     new User({
       username: req.body.username,
